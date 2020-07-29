@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#!/usr/bin/env python3
 '''
 Draw box with given width, height and depth.
 
@@ -22,7 +22,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 '''
 
 import inkex
-import sys
 from lxml import etree
 from inkex.paths import Path
 from inkex.styles import Style
@@ -31,7 +30,6 @@ def dirtyFormat(path):
     return str(path).replace('[','').replace(']','').replace(',','').replace('\'','')
 		
 class RobotBox(inkex.Effect):
-
 
     def __init__(self):
         inkex.Effect.__init__(self)
@@ -42,12 +40,10 @@ class RobotBox(inkex.Effect):
         self.arg_parser.add_argument("-c", "--crampheight", type=float, default=1.0, help="Cramp ear height - render cramping ears and slots on the left and right walls (0 for no cramp)")
         self.arg_parser.add_argument("-d", "--dashwidth", type=float, default=5.0, help="Bend line dash width")
         self.arg_parser.add_argument("-s", "--dashstep", type=float, default=5.0, help="Bend line dash step")
-        self.arg_parser.add_argument("-b", "--bendsurface", default="inner",
-                        help="Bend line surface (innder or outer) - depends on the way you will make actual bends")
+        self.arg_parser.add_argument("-b", "--bendsurface", default="inner", help="Bend line surface (innder or outer) - depends on the way you will make actual bends")
         self.arg_parser.add_argument("-u", "--unit", default="mm", help="The unit of dimensions")
                         
     def effect(self):
-
         width  = self.svg.unittouu( str(self.options.width) + self.options.unit )
         height = self.svg.unittouu( str(self.options.height) + self.options.unit )
         depth  = self.svg.unittouu( str(self.options.depth) + self.options.unit )
@@ -358,5 +354,4 @@ class RobotBox(inkex.Effect):
         etree.SubElement(g, inkex.addNS('path','svg'), {'style':str(inkex.Style(style)), 'd':dirtyFormat(bend_line_h4)} )
 
 if __name__ == '__main__':
-    e = RobotBox()
-    e.run()
+    RobotBox().run()
